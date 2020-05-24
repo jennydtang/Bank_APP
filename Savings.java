@@ -17,8 +17,8 @@ public class Savings extends Account {
 
     private void setSafetyDepositBox() {
         safetyDepositBoxID = (int) (Math.random() * Math.pow(10, 3));
-        safetyDepositBoxKey = (int) (Math.random() * Math.pow(10, 3));
-        System.out.println(safetyDepositBoxID);
+        safetyDepositBoxKey = (int) (Math.random() * Math.pow(10, 4));
+        // System.out.println(safetyDepositBoxID);
     }
 
     // List any methods specific to savings account
