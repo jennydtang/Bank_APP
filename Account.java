@@ -2,13 +2,13 @@ public abstract class Account implements IBaseRate { // don't want to make objec
                                                      // parent class and child inherits it
     // whatever is inside IRATE is now in account
     // List common properties for savings and checking accounts
-    String name;
-    String sSN;
-    double balance;
+    private String name;
+    private String sSN;
+    private double balance;
 
-    static int index = 10000;
-    String accountNumber;
-    double rate;
+    private static int index = 10000;
+    protected String accountNumber;
+    protected double rate;
 
     // Constructor to set base properties and initialize the account
     public Account(String name, String sSN, double initDeposit) {
@@ -19,7 +19,11 @@ public abstract class Account implements IBaseRate { // don't want to make objec
         // Set account number
         index++;
         this.accountNumber = setAccountNumber();
+
+        setRate(); // call method
     }
+
+    public abstract void setRate();
 
     private String setAccountNumber() {
         String lastTwoOfSSN = sSN.substring(sSN.length() - 2, sSN.length());
@@ -28,8 +32,38 @@ public abstract class Account implements IBaseRate { // don't want to make objec
         return lastTwoOfSSN + uniqueID + randomNumber;
     }
 
-    // List common Methods
+    public void compound() {
+        double accruedInterest = balance * (rate / 100);
+        balance = balance + accruedInterest;
+        System.out.println("Accrued Interest : $" + accruedInterest);
+        printBalance();
+    }
+
+    // List common Methods - transactions
+    public void deposit(double amount) {
+        balance = balance + amount;
+        System.out.println("Depositing $" + amount);
+        printBalance();
+    }
+
+    public void withdraw(double amount) {
+        balance = balance - amount;
+        System.out.println("Withdrawing $" + amount);
+        printBalance();
+    }
+
+    public void transfer(String toWhere, double amount) {
+        balance = balance - amount;
+        System.out.println("Transfer $" + amount + " to " + toWhere);
+        printBalance();
+    }
+
+    public void printBalance() {
+        System.out.println("Your balance is now: $" + balance);
+    }
+
     public void showInfo() {
-        System.out.println("NAME: " + name + "\nACCOUNT NUMBER: " + accountNumber + "\nBALANCE: " + balance);
+        System.out.println("NAME: " + name + "\nACCOUNT NUMBER: " + accountNumber + "\nBALANCE: " + balance + "\nRate: "
+                + rate + "%");
     }
 }

@@ -1,13 +1,18 @@
 public class Savings extends Account {
     // List properties specific to the Savings account
-    int safetyDepositBoxID;
-    int safetyDepositBoxKey;
+    private int safetyDepositBoxID;
+    private int safetyDepositBoxKey;
 
     // Constructor to initialize settings for the savings properties
     public Savings(String name, String sSN, double initDeposit) {
         super(name, sSN, initDeposit);
         accountNumber = "1" + accountNumber;
         setSafetyDepositBox();
+    }
+
+    @Override
+    public void setRate() {
+        rate = getBaseRate() - .25;
     }
 
     private void setSafetyDepositBox() {
@@ -23,4 +28,5 @@ public class Savings extends Account {
         System.out.println("Your Savings Account Features" + "\nSafety Deposit Box ID: " + safetyDepositBoxID
                 + "\nSafety Deposit Box Key: " + safetyDepositBoxKey);
     }
+
 }
